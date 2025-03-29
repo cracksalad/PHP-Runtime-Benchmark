@@ -1,0 +1,8 @@
+version: "3"
+server:
+  command: "php src/roadrunner.php"
+http:
+  address: 127.0.0.1:1337
+logs:
+  level: warn
+  mode: production
