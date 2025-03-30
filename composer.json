@@ -1,5 +1,12 @@
 {
+    "name": "cracksalad/php-runtime-benchmark-http-server",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
     "require": {
+        "php": ">=8.0",
         "amphp/http-server": "^3.1",
         "monolog/monolog": "^3.9",
         "amphp/byte-stream": "^2.1",
@@ -9,6 +16,6 @@
         "spiral/roadrunner-http": "^3.5"
     },
     "require-dev": {
-        "openswoole/ide-helper": "^4.11"
+        "openswoole/ide-helper": "^22.1"
     }
 }

@@ -64,7 +64,7 @@ The following numbers have been measured/calculated by *k6*:
 
 First of all, it should be noted, that I am comparing mostly stock configurations here. There are most probably ways to tweak the performance of the individual runtimes. Feel free to look at the server implementations and test your own configurations.
 
-- **AMPHP and ReactPHP have failed to respond successfully in 1.57 % and 0.71 % respectively at 10k concurrent requests**
+- **AMPHP and ReactPHP have failed to respond successfully to 1.57 % and 0.71 % of the requests respectively at 10k concurrent requests**
 - The average response time seems to be roughly proportional to the amount of concurrent requests. However, this does not hold at all for AMPHP and also not for ReactPHP and Swoole with 10k concurrent requests.
 - FrankenPHP in worker mode handles a constant amount of requests per second regardless of the concurrency. I have to dig deeper here!
 - There seems to be a trade off between low response times and high amount of handled requests when it comes to heavy load: AMPHP's, ReactPHP's and Swoole's handled requests per second decrease significantly while keeping up the rather low response times. FrankenPHP (both modes) and RoadRunner on the other hand are able to keep up their handled requests per second, but the response time increases significantly. 
