@@ -1,0 +1,18 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-client",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0",
+        "amphp/http-client": "^5.3",
+        "openswoole/core": "^22.2",
+        "react/async": "^4.3",
+        "react/http": "^1.11"
+    },
+    "require-dev": {
+        "openswoole/ide-helper": "^22.1"
+    }
+}
