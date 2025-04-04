@@ -1,0 +1,11 @@
+FROM composer:latest
+
+COPY composer.json /app/composer.json
+COPY src/server.php /app/src/server.php
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    docker-php-ext-install pcntl && docker-php-ext-enable pcntl
+RUN composer update --no-dev
+
+EXPOSE 1337/tcp
+ENTRYPOINT ["php", "/app/src/server.php"]

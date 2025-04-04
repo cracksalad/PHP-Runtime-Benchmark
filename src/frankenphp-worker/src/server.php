@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-require_once dirname(__DIR__).'/vendor/autoload.php';
-
 // Handler outside the loop for better performance (doing less work)
 $handler = static function(): void {
   // Called when a request is received,

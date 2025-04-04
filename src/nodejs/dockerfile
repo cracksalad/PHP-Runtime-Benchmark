@@ -1,0 +1,6 @@
+FROM node:alpine
+
+COPY src/server.mjs /app/src/server.mjs
+
+EXPOSE 1337/tcp
+ENTRYPOINT ["node", "/app/src/server.mjs"]

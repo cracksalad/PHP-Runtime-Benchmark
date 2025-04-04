@@ -1,0 +1,11 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-server-frankenphp",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}

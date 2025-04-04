@@ -1,0 +1,15 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-server-openswoole",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0",
+        "ext-openswoole": "*"
+    },
+    "require-dev": {
+        "openswoole/ide-helper": "^22.1"
+    }
+}

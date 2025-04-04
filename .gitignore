@@ -1,4 +1,5 @@
 /.buildpath
 /.project
 /.settings
-/vendor
+vendor
+target

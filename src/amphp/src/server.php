@@ -1,7 +1,7 @@
 <?php
 /**
  * - compression: on
- * - per IP connection limit: disabled for localhost, 10 otherwise
+ * - per IP connection limit: disabled for localhost, 10k otherwise
  */
 
 declare(strict_types=1);
@@ -17,10 +17,11 @@ use Amp\Log\ConsoleFormatter;
 use Amp\Log\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Monolog\Level;
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
-$logHandler = new StreamHandler(getStdout());
+$logHandler = new StreamHandler(getStdout(), Level::Notice);
 $logHandler->pushProcessor(new PsrLogMessageProcessor());
 $logHandler->setFormatter(new ConsoleFormatter());
 
@@ -39,8 +40,8 @@ $requestHandler = new class() implements RequestHandler {
 
 $errorHandler = new DefaultErrorHandler();
 
-$server = SocketHttpServer::createForDirectAccess($logger);
-$server->expose('127.0.0.1:1337');
+$server = SocketHttpServer::createForDirectAccess($logger, connectionLimitPerIp: 10_000, connectionLimit: 10_000, concurrencyLimit: 10_000);
+$server->expose('0.0.0.0:1337');
 $server->start($requestHandler, $errorHandler);
 
 // Serve requests until SIGINT or SIGTERM is received by the process.

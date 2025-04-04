@@ -1,4 +1,8 @@
 <?php
+/**
+ * - compression: on
+ */
+
 declare(strict_types=1);
 
 use Swoole\Http\Request;
@@ -7,11 +11,15 @@ use Swoole\Http\Server;
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
-$server = new Server('127.0.0.1', 1337);
+echo sprintf('PHP: %s'.PHP_EOL, phpversion());
+echo sprintf('OpenSwoole: %s'.PHP_EOL, phpversion('openswoole'));
+
+$server = new Server('0.0.0.0', 1337);
 
 $server->set([
-  'worker_num' => 4,      // The number of worker processes to start
-  'task_worker_num' => 4, // The amount of task workers to start
+  'reactor_num' => 2,     // The number of I/O threads to start
+  'worker_num' => 2,      // The number of worker processes to start
+  'task_worker_num' => 1, // The amount of task workers to start
   'backlog' => 128,       // TCP backlog connection number
 ]);
 

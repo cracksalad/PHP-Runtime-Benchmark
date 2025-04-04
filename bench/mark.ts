@@ -7,6 +7,6 @@ export const options = {
 };
 
 export default function() {
-  let res = http.get('http://localhost:1337/frankenphp.php');
+  let res = http.get('http://127.0.0.1:1337/server.php');
   check(res, { "status is 200": (res) => res.status === 200 });
 }

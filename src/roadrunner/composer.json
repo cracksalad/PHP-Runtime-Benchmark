@@ -1,0 +1,14 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-server",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0",
+        "ext-sockets": "*",
+        "nyholm/psr7": "^1.8",
+        "spiral/roadrunner-http": "^3.5"
+    }
+}

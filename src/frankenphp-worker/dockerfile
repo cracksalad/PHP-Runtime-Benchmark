@@ -1,0 +1,9 @@
+FROM dunglas/frankenphp:1.5-php8.4-alpine
+
+COPY composer.json /app/composer.json
+COPY src/server.php /app/src/server.php
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+EXPOSE 1337/tcp
+ENTRYPOINT ["frankenphp", "php-server", "--root", "/app/src", "--listen", "0.0.0.0:1337", "--worker", "src/server.php"]

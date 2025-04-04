@@ -1,0 +1,12 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-server-reactphp",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0",
+        "react/http": "^1.11"
+    }
+}

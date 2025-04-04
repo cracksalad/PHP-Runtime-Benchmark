@@ -1,0 +1,12 @@
+FROM phpswoole/swoole:6.0.1-php8.4-alpine
+
+COPY composer.json /app/composer.json
+COPY src/server.php /app/src/server.php
+
+WORKDIR /app
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN composer update --no-dev
+
+EXPOSE 1337/tcp
+ENTRYPOINT ["php", "/app/src/server.php"]

@@ -1,0 +1,10 @@
+version: "3"
+server:
+  command: "php src/server.php"
+http:
+  address: 0.0.0.0:1337
+  pool:
+    num_workers: 3
+logs:
+  level: warn
+  mode: production
