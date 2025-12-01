@@ -1,0 +1,12 @@
+{
+    "name": "cracksalad/php-runtime-benchmark-http-server-workerman",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.0",
+        "workerman/workerman": "^5.1"
+    }
+}

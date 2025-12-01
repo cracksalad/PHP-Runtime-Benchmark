@@ -15,10 +15,11 @@ So this benchmarks work independent of Symfony. The actual measurements are perf
 - ReactPHP
 - RoadRunner
 - Swoole
+- Workerman
 
 If you want to see other alternatives, please let me know!
 
-As references I chose Apache mod_php with mpm_prefork as baseline, Rust Rocket as some kind of upper limit and NodeJS as the probably main competitor.
+As references I chose Apache mod_php with mpm_prefork as well as Nginx with PHP-FPM as baseline, Rust ActiX Web as some kind of upper limit and NodeJS as the probably main competitor.
 
 ### AMPHP
 
@@ -55,51 +56,57 @@ All HTTP servers run in an Alpine-based PHP 8.4 Docker image limited to a single
 
 |Runtime|VUS|Requests per second|Average response time (ms)|
 |-------|--:|------------------:|--------------------------|
-|Apache mod_php mpm_prefork|10|6,612|1.46|
-|Apache mod_php mpm_prefork|100|5,819|17.1|
-|Apache mod_php mpm_prefork|1000|2,896|219|
-|AMPHP (amphp/http-server@3.4.2)|10|239|41.7|
-|AMPHP (amphp/http-server@3.4.2)|100|2,380|41.9|
-|AMPHP (amphp/http-server@3.4.2)|1000|14,482|68.8|
-|FrankenPHP classic mode (frankenphp@1.5.0)|10|9,260|1.05|
-|FrankenPHP classic mode (frankenphp@1.5.0)|100|8,948|11.1|
-|FrankenPHP classic mode (frankenphp@1.5.0)|1000|8,755|114|
-|FrankenPHP worker mode (frankenphp@1.5.0)|10|13,609|0.71|
-|FrankenPHP worker mode (frankenphp@1.5.0)|100|12,548|7.93|
-|FrankenPHP worker mode (frankenphp@1.5.0)|1000|12,578|79.2|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|10|24,905|0.376|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|100|24,352|4.07|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|1000|22,385|44.5|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|10|21,317|0.439|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|100|20,094|4.69|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|1000|21,143|47.1|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 3 worker processes)|10|19,098|0.49|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 3 worker processes)|100|20,134|4.91|
-|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 3 worker processes)|1000|20,828|47.9|
-|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|10|18,450|0.509|
-|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|100|18,114|5.47|
-|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|1000|17,202|57.9|
-|ReactPHP (react/http@1.11.0)|10|39,928|0.188|
-|ReactPHP (react/http@1.11.0)|100|40,718|2.41|
-|ReactPHP (react/http@1.11.0)|1000|35,302|28.2|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=1)|10|7,111|1.37|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=1)|100|6,857|14.5|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=1)|1000|6,860|145|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=2)|10|7,299|1.34|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=2)|100|7,063|14.1|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=2)|1000|6,968|143|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=3)|10|6,463|1.51|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=3)|100|6,686|14.9|
-|RoadRunner (rr@2024.3.5, http.pool.num_workers=3)|1000|6,029|165|
-|Swoole (ext-swoole@6.0.1)|10|44,256|0.202|
-|Swoole (ext-swoole@6.0.1)|100|44,800|2.2|
-|Swoole (ext-swoole@6.0.1)|1000|40,110|24.8|
-|Rust Rocket (v0.5.1, workers=1)|10|52,070|0.168|
-|Rust Rocket (v0.5.1, workers=1)|100|50,897|1.93|
-|Rust Rocket (v0.5.1, workers=1)|1000|45,434|21.9|
-|NodeJS (v23.11.0)|10|53,421|0.163|
-|NodeJS (v23.11.0)|100|47,538|2.07|
-|NodeJS (v23.11.0)|1000|41,241|24.2|
+|Apache mod_php mpm_prefork|10|8,122|1.17|
+|Apache mod_php mpm_prefork|100|6,873|14.47|
+|Apache mod_php mpm_prefork|1000|3,401|176|
+|Nginx PHP-FPM|10|4,054|2.41|
+|Nginx PHP-FPM|100|3,755|26.5|
+|Nginx PHP-FPM|1000|4,222|235|
+|AMPHP (amphp/http-server@3.4.3)|10|240|41.5|
+|AMPHP (amphp/http-server@3.4.3)|100|2,407|41.5|
+|AMPHP (amphp/http-server@3.4.3)|1000|10,455|95.3|
+|FrankenPHP classic mode (frankenphp@1.10.1)|10|9,033|1.07|
+|FrankenPHP classic mode (frankenphp@1.10.1)|100|8,501|11.7|
+|FrankenPHP classic mode (frankenphp@1.10.1)|1000|8,669|115|
+|FrankenPHP worker mode (frankenphp@1.10.1)|10|11,115|0.87|
+|FrankenPHP worker mode (frankenphp@1.10.1)|100|10,395|9.58|
+|FrankenPHP worker mode (frankenphp@1.10.1)|1000|10,237|97.4|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|10|22,555|0.41|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|100|22,214|4.46|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 1 worker process)|1000|20,469|48.7|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|10|19,013|0.490|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|100|19,260|5.13|
+|OpenSwoole (ext-openswoole@25.2.0, 1 reactor thread, 2 worker processes)|1000|19,949|49.95|
+|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|10|16,427|0.571|
+|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|100|16,611|5.96|
+|OpenSwoole (ext-openswoole@25.2.0, 2 reactor threads, 2 worker processes)|1000|15,907|62.56|
+|ReactPHP (react/http@1.11.0)|10|37,935|0.236|
+|ReactPHP (react/http@1.11.0)|100|38,903|2.52|
+|ReactPHP (react/http@1.11.0)|1000|32,651|30.5|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=1)|10|6,327|1.55|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=1)|100|6,080|16.4|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=1)|1000|5,868|170|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=2)|10|5,732|1.71|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=2)|100|5,588|17.85|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=2)|1000|5,402|184|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=3)|10|5,188|1.88|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=3)|100|5,038|19.8|
+|RoadRunner (rr@2025.1.5, http.pool.num_workers=3)|1000|4,863|205|
+|Swoole (ext-swoole@6.1.3)|10|42,548|0.209|
+|Swoole (ext-swoole@6.1.3)|100|39,665|2.48|
+|Swoole (ext-swoole@6.1.3)|1000|35,634|28|
+|Workerman (workerman/workerman@5.1.6, 1 worker, no event/swoole/swow)|10|70,911|0.105|
+|Workerman (workerman/workerman@5.1.6, 1 worker, no event/swoole/swow)|100|79,957|1.2|
+|Workerman (workerman/workerman@5.1.6, 1 worker, no event/swoole/swow)|1000|63,015|15.7|
+|Workerman (workerman/workerman@5.1.6, 2 workers, no event/swoole/swow)|10|61,787|0.136|
+|Workerman (workerman/workerman@5.1.6, 2 workers, no event/swoole/swow)|100|69,186|1.36|
+|Workerman (workerman/workerman@5.1.6, 2 workers, no event/swoole/swow)|1000|57,131|16.5|
+|Rust ActiX Web (v4.12.1)|10|69,655|0.109|
+|Rust ActiX Web (v4.12.1)|100|71,923|1.34|
+|Rust ActiX Web (v4.12.1)|1000|60,664|16.34|
+|NodeJS (v25.2.1)|10|50,208|0.172|
+|NodeJS (v25.2.1)|100|47,932|2.05|
+|NodeJS (v25.2.1)|1000|39,121|25.5|
 
 </details>
 
@@ -118,6 +125,8 @@ First of all, it should be noted, that I am comparing mostly stock configuration
     1. `cd src/<runtime>`
     2. `docker build -t cracksalad/php-runtime-benchmark-http-server-<runtime> .`
     3. `docker run --rm --cpus 1 -p 1337:1337 -it cracksalad/php-runtime-benchmark-http-server-<runtime>`
+        - for Apache, use container port 80
+        - for Nginx, use container port 8080
 2. Run `k6 run --vus <VUS> bench/mark.ts` with `<VUS>` being the number of parallel executions.
 3. Wait 30 seconds and voilà!
 
@@ -129,3 +138,4 @@ First of all, it should be noted, that I am comparing mostly stock configuration
 - [reactphp.org](https://reactphp.org/http/#server-usage)
 - [docs.roadrunner.dev](https://docs.roadrunner.dev/docs/general/quick-start)
 - [swoole.com](https://wiki.swoole.com/en/#/start/start_http_server)
+- [workerman.net](https://manual.workerman.net/doc/en/getting-started/simple-example.html)

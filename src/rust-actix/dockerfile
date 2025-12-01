@@ -1,0 +1,12 @@
+FROM rust:alpine
+
+COPY src/main.rs /app/src/main.rs
+COPY Cargo.toml /app/Cargo.toml
+
+WORKDIR /app
+
+RUN apk add --no-cache musl-dev pkgconfig openssl-dev
+RUN cargo build -r
+
+EXPOSE 1337/tcp
+ENTRYPOINT ["cargo", "run", "-r"]
